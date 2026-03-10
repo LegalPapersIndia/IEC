@@ -159,7 +159,7 @@ const handleSubmit = async (e) => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 min timeout
 
-    const response = await fetch('/crm-lead/leadRoutes', {  // ← yeh important change
+    const response = await fetch('https://iec-sziz.onrender.com/api/submit-iec', {  // ← yeh important change
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
