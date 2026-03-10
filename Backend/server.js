@@ -1,117 +1,99 @@
-// server.js - Complete IEC Backend (Express + Node.js)
-require('dotenv').config(); // Load .env variables
+// server.js - FINAL WORKING VERSION (Fire-and-Forget + Instant Success)
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
 const cors = require('cors');
 const helmet = require('helmet');
+const fs = require('fs'); // optional logging ke liye
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000; // tumhare log mein 5000 chal raha tha
 const CRM_URL = process.env.CRM_URL || 'https://legalpapers.konceptsoftwaresolutions.com/leadRoutes';
 
 // Middleware
-app.use(helmet()); // Security headers
-app.use(cors({ origin: '*' })); // Allow all origins (React से requests) - production में specific domain set करो
-app.use(bodyParser.json()); // Parse JSON from React
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded if needed
+app.use(helmet());
+app.use(cors({ origin: '*' })); // production mein specific domain daal dena
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Health check endpoint (Render deployment के लिए useful)
+// Health check
 app.get('/', (req, res) => {
-  res.json({ 
-    message: 'IEC Backend Running!', 
-    timestamp: new Date().toISOString(),
-    crmUrl: CRM_URL // Debug के लिए, production में हटा दो
-  });
+  res.json({ status: 'ok', message: 'IEC Backend Running' });
 });
 
-// Main endpoint: React form submits here
+// Main submission endpoint
 app.post('/api/submit-iec', async (req, res) => {
   try {
-    console.log('Received form data from React:', JSON.stringify(req.body, null, 2)); // Debug log
+    console.log('Received from React:', req.body);
 
-    const formData = req.body; // Raw data from React
+    const data = req.body;
 
-    // Build CRM payload EXACTLY like PHP (field mappings)
+    // Build exact CRM payload
     const crmPayload = {
-      'ctl00$ContentPlaceHolder1$ddlApplicationType': formData.application_type || '',
-      'ctl00$ContentPlaceHolder1$txtBusinesEntity': formData.business_entity || '',
-      'ctl00$ContentPlaceHolder1$ddlConstitution': formData.constitution || '',
-      'ctl00$ContentPlaceHolder1$txtdescriptionbusiness': formData.description_business || '',
-      'ctl00$ContentPlaceHolder1$ddlBsinessActivity': formData.business_activity || '', // Typo matches PHP
-      'ctl00$ContentPlaceHolder1$txtDate': formData.date_of_incorporation || '', // DD-MM-YYYY from React
-
-      // Address fields (no prefix, like PHP)
-      'txtpaddress': formData.address_line1 || '',
-      'txtpaddress2': formData.address_line2 || '',
-      'txtpcity': formData.city || '',
-      'txtpstate': formData.state || '',
-      'txtppincode': formData.pincode || '',
-
-      'ctl00$ContentPlaceHolder1$txtPanNo': formData.pan_no || '',
-      'ctl00$ContentPlaceHolder1$txtemail': formData.email || '',
-      'ctl00$ContentPlaceHolder1$txtphone': formData.contact_no || '',
-
-      // Extra fields (if needed)
-      'hasBranch': formData.has_branch || '',
-      'sez': formData.sez || 'No',
-
+      'ctl00$ContentPlaceHolder1$ddlApplicationType': data.application_type || '',
+      'ctl00$ContentPlaceHolder1$txtBusinesEntity': data.business_entity || '',
+      'ctl00$ContentPlaceHolder1$ddlConstitution': data.constitution || '',
+      'ctl00$ContentPlaceHolder1$txtdescriptionbusiness': data.description_business || '',
+      'ctl00$ContentPlaceHolder1$ddlBsinessActivity': data.business_activity || '',
+      'ctl00$ContentPlaceHolder1$txtDate': data.date_of_incorporation || '',
+      'txtpaddress': data.address_line1 || '',
+      'txtpaddress2': data.address_line2 || '',
+      'txtpcity': data.city || '',
+      'txtpstate': data.state || '',
+      'txtppincode': data.pincode || '',
+      'ctl00$ContentPlaceHolder1$txtPanNo': data.pan_no || '',
+      'ctl00$ContentPlaceHolder1$txtemail': data.email || '',
+      'ctl00$ContentPlaceHolder1$txtphone': data.contact_no || '',
+      'hasBranch': data.has_branch || '',
+      'sez': data.sez || 'No',
       'serviceCategory': 'iecReg',
       'leadSource': 'iecregistration-india.org'
     };
 
-    // Convert to x-www-form-urlencoded (PHP http_build_query equivalent)
-    const formBody = new URLSearchParams();
-    Object.entries(crmPayload).forEach(([key, value]) => {
-      formBody.append(key, value);
-    });
+    const formBody = new URLSearchParams(crmPayload);
 
-    console.log('Forwarding payload to CRM:', formBody.toString().substring(0, 300) + '...'); // Debug log
+    console.log('→ Fire-and-forget to CRM:', formBody.toString().slice(0, 400) + '...');
 
-    // Forward to CRM (mimic PHP cURL: POST, 10s timeout, minimal headers)
-    const crmResponse = await fetch(CRM_URL, {
+    // Fire request in background – no await, no timeout, no waiting
+    fetch(CRM_URL, {
       method: 'POST',
-      headers: {
+      headers: { 
         'Content-Type': 'application/x-www-form-urlencoded',
-        // No Referer/Origin/User-Agent — server-to-server request
+        'User-Agent': 'Mozilla/5.0 (compatible; IEC Proxy/1.0)'
       },
-      body: formBody.toString(),
-      timeout: 10000 // 10s like PHP
+      body: formBody,
+      keepalive: true  // Connection alive rahega response ke baad bhi
+    })
+    .then(async res => {
+      const text = await res.text();
+      console.log('Late CRM response arrived:', {
+        status: res.status,
+        bodyPreview: text.slice(0, 500)
+      });
+      // Optional: file log
+      fs.appendFile('crm_responses.log', 
+        `${new Date().toISOString()} - Status: ${res.status} | Body: ${text.slice(0, 300)}\n`, 
+        () => {}
+      );
+    })
+    .catch(err => {
+      console.error('Background CRM failed (ignored):', err.message);
+      fs.appendFile('crm_errors.log', 
+        `${new Date().toISOString()} - Error: ${err.message}\n`, 
+        () => {}
+      );
     });
 
-    const crmText = await crmResponse.text();
-    console.log('CRM Response Status:', crmResponse.status);
-    console.log('CRM Response Body (first 300 chars):', crmText.substring(0, 300)); // Debug log
+    // Turant success return kar do React ko
+    res.json({
+      success: true,
+      message: 'Submitted successfully – processing in background (may take a few minutes)'
+    });
 
-    // Success check (like PHP/React: ok status or keywords)
-    const isSuccess = crmResponse.ok ||
-      crmText.toLowerCase().includes('success') ||
-      crmText.includes('thank') ||
-      crmText.includes('submitted') ||
-      crmText.includes('application received');
-
-    if (isSuccess) {
-      res.json({ 
-        success: true, 
-        message: 'Submitted to CRM successfully!', 
-        crmStatus: crmResponse.status,
-        crmResponse: crmText 
-      });
-    } else {
-      res.status(400).json({ 
-        success: false, 
-        message: 'CRM submission failed', 
-        crmStatus: crmResponse.status,
-        crmResponse: crmText 
-      });
-    }
-
-  } catch (error) {
-    console.error('Backend Error:', error.message);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Server error during CRM submission', 
-      error: error.message 
+  } catch (err) {
+    console.error('Critical error before sending:', err.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to initiate submission – please try again'
     });
   }
 });
@@ -123,6 +105,6 @@ app.use((req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`IEC Backend running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/`);
 });

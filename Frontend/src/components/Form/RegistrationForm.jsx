@@ -115,96 +115,65 @@ const handleSubmit = async (e) => {
   if (!validateForm()) return;
 
   setLoading(true);
-  setSubmitStatus({ type: "", message: "" });
+  setSubmitStatus({ type: "info", message: "Submitting application... Please wait a moment" });
 
-  // Prepare payload (same as before)
-  const crmPayload = {
-    "ctl00$ContentPlaceHolder1$ddlApplicationType": formData.application_type,
-    "ctl00$ContentPlaceHolder1$txtBusinesEntity": formData.business_entity,
-    "ctl00$ContentPlaceHolder1$ddlConstitution": formData.constitution,
-    "ctl00$ContentPlaceHolder1$txtdescriptionbusiness": formData.description_business || "",
-    "ctl00$ContentPlaceHolder1$ddlBsinessActivity": formData.business_activity,  // note: Bsiness (typo in backend?)
-    "ctl00$ContentPlaceHolder1$txtDate": formatDate(formData.date_of_incorporation) || "",
-
-    txtpaddress: formData.address_line1,
-    txtpaddress2: formData.address_line2 || "",
-    txtpcity: formData.city || "",
-    txtpstate: formData.state,
-    txtppincode: formData.pincode || "",
-
-    "ctl00$ContentPlaceHolder1$txtPanNo": formData.pan_no,
-    "ctl00$ContentPlaceHolder1$txtemail": formData.email,
-    "ctl00$ContentPlaceHolder1$txtphone": formData.contact_no,
-
-    hasBranch: formData.has_branch,
+  const submitData = {
+    application_type: formData.application_type,
+    business_entity: formData.business_entity,
+    constitution: formData.constitution,
+    description_business: formData.description_business || "",
+    business_activity: formData.business_activity,
+    date_of_incorporation: formatDate(formData.date_of_incorporation) || "",
+    address_line1: formData.address_line1,
+    address_line2: formData.address_line2 || "",
+    city: formData.city || "",
+    state: formData.state,
+    pincode: formData.pincode || "",
+    has_branch: formData.has_branch,
+    pan_no: formData.pan_no,
+    email: formData.email,
+    contact_no: formData.contact_no,
     sez: formData.sez,
-
-    serviceCategory: "iecReg",
-    leadSource: "iecregistration-india.org"
   };
 
   try {
-    const formBody = new URLSearchParams();
-    Object.entries(crmPayload).forEach(([key, value]) => {
-      formBody.append(key, value || "");
+    // Local: 5000 (tumhare log ke hisab se)
+    // Production: 'https://your-render-url.onrender.com/api/submit-iec'
+    const res = await fetch('http://localhost:5000/api/submit-iec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(submitData),
     });
 
-    console.log("Sending payload to CRM:", formBody.toString());
+    if (!res.ok) {
+      throw new Error(`Backend responded ${res.status}`);
+    }
 
-    setSubmitStatus({
-      type: "info",
-      message: "Submitting your IEC application... Please wait (up to 2-3 min)",
-    });
+    const result = await res.json();
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 min timeout
-
-    const response = await fetch('https://iec-sziz.onrender.com/api/submit-iec', {  // ← yeh important change
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Referer": window.location.href,          // fake referer
-        "Origin": window.location.origin,
-      },
-      body: formBody,
-      redirect: "follow",
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
-
-    const responseText = await response.text();
-    console.log("CRM Response - Status:", response.status);
-    console.log("CRM Response - Body:", responseText);
-
-    if (response.ok || responseText.includes('success') || responseText.includes('thank') || responseText.includes('submitted')) {
+    if (result.success) {
       setSubmitStatus({
         type: "success",
-        message: "Application submitted successfully! Redirecting...",
+        message: "Submitted! Processing in background – redirecting to payment...",
       });
 
-      localStorage.setItem("iecSubmittedData", JSON.stringify(formData));
+      localStorage.setItem("iecSubmittedData", JSON.stringify(submitData));
 
+      // Turant redirect (1 second baad message dikhne ke liye)
       setTimeout(() => {
         window.location.href = "/payment-summary";
-      }, 3000);
+      }, 1000);
     } else {
       setSubmitStatus({
         type: "error",
-        message: `Submission failed. Server response: ${responseText.slice(0, 200) || 'No details'}. Please check console or try again.`,
+        message: result.message || "Submission failed – try again",
       });
     }
-
   } catch (error) {
-    console.error("Error submitting to CRM:", error);
-
-    let msg = "Network error. Please check internet.";
-    if (error.name === 'AbortError') msg = "Request timed out (>3 min). May have submitted — check with support.";
-    if (error.message.includes('Failed to fetch')) msg = "Connection blocked or server down.";
-
+    console.error("Submit error:", error);
     setSubmitStatus({
       type: "error",
-      message: msg + " See console for details.",
+      message: "Cannot connect – check internet or server",
     });
   } finally {
     setLoading(false);
