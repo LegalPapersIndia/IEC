@@ -139,7 +139,7 @@ const handleSubmit = async (e) => {
   try {
     // Local: 5000 (tumhare log ke hisab se)
     // Production: 'https://your-render-url.onrender.com/api/submit-iec'
-    const res = await fetch('http://localhost:5000/api/submit-iec', {
+    const res = await fetch('https://iec-sziz.onrender.com/api/submit-iec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(submitData),
