@@ -64,7 +64,7 @@ export default function AdminDashboard() {
   };
 
   const exportToExcel = () => {
-    // ✅ Export ALL leads (original behavior) - even if search is applied
+    // Export ALL leads (original behavior)
     const worksheet = XLSX.utils.json_to_sheet(leads);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'IEC_Leads');
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
                 <th className="p-4 text-left">Mobile</th>
                 <th className="p-4 text-left">Email</th>
                 <th className="p-4 text-left">State</th>
-                <th className="p-4 text-left">Date</th>
+                <th className="p-4 text-left">Date & Time</th>   {/* Changed */}
               </tr>
             </thead>
             <tbody>
@@ -152,7 +152,14 @@ export default function AdminDashboard() {
                     <td className="p-4">{l.email || l.rawPayload?.txtemail || "-"}</td>
                     <td className="p-4">{l.state || l.rawPayload?.txtpstate || "-"}</td>
                     <td className="p-4 text-sm">
-                      {new Date(l.createdAt).toLocaleDateString('en-IN')}
+                      {new Date(l.createdAt).toLocaleString('en-IN', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                      })}
                     </td>
                   </tr>
                 ))
