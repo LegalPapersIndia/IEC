@@ -69,6 +69,7 @@ export default function MainFooter() {
                 { name: "Contact Us", path: "/contact" },
                 { name: "Refund Policy", path: "/refund-policy" },
                 { name: "Terms & Conditions", path: "/term-condition" },
+                { name: "Privacy Policy", path: "/privacy-policy" },
                 { name: "Disclaimer", path: "/disclaimer" },
               ].map((item) => (
                 <li key={item.name}>

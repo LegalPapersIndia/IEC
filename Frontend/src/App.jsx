@@ -24,6 +24,7 @@ import TermsAndConditionsPage from "./components/Pages/TermsAndConditionsPage";
 import RefundPolicyPage from "./components/Pages/RefundPolicyPage";
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminDashboard from "./components/Admin/AdminDashboard";
+import PrivacyPolicyPage from "./components/Pages/PrivacyPolicyPage";
 
 // Reusable marquee component
 function GlobalMarquee() {
@@ -169,6 +170,7 @@ function AppContent() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/term-condition" element={<TermsAndConditionsPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
