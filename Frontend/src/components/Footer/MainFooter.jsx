@@ -16,12 +16,9 @@ export default function MainFooter() {
               Important Notice
             </h3>
             <p className="text-sm leading-relaxed opacity-90">
-              This is a <span className="font-semibold text-yellow-400">PRIVATE CONSULTANCY</span> portal, 
+              This is a <span className="font-semibold text-yellow-400">PRIVATE CONSULTANCY</span> portal owned By <a href="https://legalpapersindia.com/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 underline">EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED</a>, 
               not affiliated with DGFT or any Government body. We assist with IEC registration, 
               form filling, document preparation, and related services only.
-            </p>
-            <p className="text-xs opacity-80 mt-4">
-              © {new Date().getFullYear()} IEC Registration India. All Rights Reserved.
             </p>
           </div>
 
@@ -67,6 +64,7 @@ export default function MainFooter() {
             <ul className="space-y-2.5 text-sm">
               {[
                 { name: "Contact Us", path: "/contact" },
+                { name: "About Us", path: "/about-us" },
                 { name: "Refund Policy", path: "/refund-policy" },
                 { name: "Terms & Conditions", path: "/term-condition" },
                 { name: "Privacy Policy", path: "/privacy-policy" },
@@ -125,8 +123,7 @@ export default function MainFooter() {
 
         <div className="mt-12 pt-8 border-t border-gray-600/50 text-center text-sm opacity-80">
           <p>
-            This is a private consultancy service Portal. All fees are for professional assistance only. 
-            Not associated with any Government department.
+             © {new Date().getFullYear()} EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED . All Rights Reserved. | Website Design, Developed & Google Promotion by <a href="https://legalpapersindia.com/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 underline">EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED</a>
           </p>
         </div>
       </div>

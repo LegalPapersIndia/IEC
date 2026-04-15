@@ -25,6 +25,7 @@ import RefundPolicyPage from "./components/Pages/RefundPolicyPage";
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import PrivacyPolicyPage from "./components/Pages/PrivacyPolicyPage";
+import AboutUsPage from "./components/Pages/Aboutus";
 
 // Reusable marquee component
 function GlobalMarquee() {
@@ -33,12 +34,30 @@ function GlobalMarquee() {
       <div className="marquee-container relative w-full">
         <div className="marquee inline-flex whitespace-nowrap text-sm font-medium tracking-wide py-2 animate-marquee">
           <span className="mx-16">
-            This is a private consultancy self-registration portal for obtaining
-            import export code. Portal fees are consultancy in nature.
+            This is a private consultancy self-registration portal owned by{" "}
+            <a
+              href="https://legalpapersindia.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-400 underline"
+            >
+              EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED
+            </a>{" "}
+            for obtaining import export code. Portal fees are consultancy in
+            nature.
           </span>
           <span className="mx-16">
-            This is a private consultancy self-registration portal for obtaining
-            import export code. Portal fees are consultancy in nature.
+            This is a private consultancy self-registration portal owned by{" "}
+            <a
+              href="https://legalpapersindia.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-400 underline"
+            >
+              EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED
+            </a>{" "}
+            for obtaining import export code. Portal fees are consultancy in
+            nature.
           </span>
         </div>
       </div>
@@ -109,7 +128,8 @@ function AppContent() {
             { label: "IEC REGISTRATION", to: "#registration-form" },
             { label: "IEC MODIFICATION", to: "#registration-form" },
             { label: "IEC RENEWAL/UPDATE", to: "#registration-form" },
-            { label: "PROCEDURE", to: "#procedure" },
+            { label: "ABOUT US", to: "/about-us" },
+            { label: "PROCEDURE", to: "#procedure" }, 
             { label: "BENEFITS", to: "#benefits" },
             { label: "FAQ'S", to: "#faq" },
           ]}
@@ -167,6 +187,7 @@ function AppContent() {
 
           {/* Legal pages */}
           <Route path="/refund-policy" element={<RefundPolicyPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/term-condition" element={<TermsAndConditionsPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
