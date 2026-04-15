@@ -125,6 +125,7 @@ export default function MainFooter() {
           <p>
              © {new Date().getFullYear()} EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED . All Rights Reserved. | Website Design, Developed & Google Promotion by <a href="https://legalpapersindia.com/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 underline">EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED</a>
           </p>
+          <p>CIN Number - U70200DL2023OPC416302</p>
         </div>
       </div>
     </footer>
