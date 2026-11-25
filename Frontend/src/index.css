@@ -1,6 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700&display=swap');
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
+  --color-navy-50: #f3f6fb;
+  --color-navy-100: #e3eaf5;
+  --color-navy-200: #c5d3ea;
+  --color-navy-300: #9db5da;
+  --color-navy-400: #6c8dc4;
+  --color-navy-500: #4770ad;
+  --color-navy-600: #1e4a8a;
+  --color-navy-700: #173b72;
+  --color-navy-800: #112c56;
+  --color-navy-900: #0b1f3a;
+  --color-navy-950: #07142a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header ke neeche section/form dab na jaye (ScrollToHash ke 140px offset ke saath match) */
+:target {
+  scroll-margin-top: 140px;
+}
+
+/* Keyboard focus ring (form fields ki apni ring hoti hai) */
+:focus-visible:not(input):not(select):not(textarea) {
+  outline: 2px solid #ea580c;
+  outline-offset: 2px;
+}
+
+/* Numbered instructions list (sidebar) */
+.steps-list {
+  counter-reset: step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.steps-list > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.steps-list > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background: #e3eaf5;
+  color: #112c56;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Marquee */
 .marquee-container {
   overflow: hidden;
   white-space: nowrap;
@@ -8,7 +79,7 @@
 
 .marquee {
   display: inline-block;
-  animation: marquee 20s linear infinite;   /* ← change this number to control speed */
+  animation: marquee 30s linear infinite; /* number badhao = slow */
 }
 
 @keyframes marquee {
@@ -24,12 +95,11 @@
   animation-play-state: paused;
 }
 
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* Header ke neeche section/form dab na jaye */
-:target {
-  scroll-margin-top: 180px;   /* adjust kar lena — header ki height ke hisaab se (TopBar + FullHeader ≈ 150-200px) */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

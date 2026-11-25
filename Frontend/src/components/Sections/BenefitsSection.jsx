@@ -1,143 +1,172 @@
-// src/components/Sections/BenefitsSection.jsx
+import AccordionItem from "../common/AccordionItem";
+
+const listClass = "list-disc pl-6 mt-3 space-y-1.5 marker:text-orange-500";
+
+const leftItems = [
+  {
+    title: "What is the applicability of IEC?",
+    content: (
+      <p>
+        IEC is mandatory for anyone importing or exporting goods commercially
+        in India. It is a 10-digit code issued by DGFT (Directorate General of
+        Foreign Trade) and is your key to start an import/export business.
+      </p>
+    ),
+  },
+  {
+    title: "Can I apply for IEC if I already have one on the same PAN?",
+    content: (
+      <p>
+        IEC is issued against PAN, and one PAN can hold only one IEC. If you
+        already have an IEC on your PAN, you should apply for modification /
+        update of the existing code instead of a fresh registration.
+      </p>
+    ),
+  },
+  {
+    title: "Procedure to apply for IEC registration?",
+    content: (
+      <p>
+        Super simple: Fill the online form → Pay securely → Upload documents →
+        Get expert help if needed → Receive your IEC certificate by email.
+      </p>
+    ),
+  },
+  {
+    title: "Can I apply for modification in IEC?",
+    content: (
+      <p>
+        Yes. You can update the name, address, bank details and other details
+        of your IEC through the DGFT portal. Our team can also assist you with
+        the modification process.
+      </p>
+    ),
+  },
+  {
+    title: "How to apply for IEC registration?",
+    content: (
+      <p>
+        Fill the form here and pay online, or simply email your documents to{" "}
+        <a
+          href="mailto:infoieccodeindia@gmail.com"
+          className="font-semibold text-navy-700 underline underline-offset-2 hover:text-orange-600"
+        >
+          infoieccodeindia@gmail.com
+        </a>{" "}
+        — we will take care of everything.
+      </p>
+    ),
+  },
+  {
+    title: "What if I don’t know how to fill this form?",
+    content: (
+      <p>
+        No problem. Send your documents and payment to us — our IEC experts
+        will fill and submit everything correctly for you.
+      </p>
+    ),
+  },
+];
+
+const rightItems = [
+  {
+    title: "How much time will it take to obtain IEC?",
+    content: (
+      <p>
+        Usually 2–7 working days after submission (most applications are
+        completed in 3–5 days), subject to DGFT approval.
+      </p>
+    ),
+  },
+  {
+    title: "What is the full form of IEC?",
+    content: (
+      <p>
+        IEC stands for Importer Exporter Code — a unique 10-digit business
+        identification number required for international trade in India.
+      </p>
+    ),
+  },
+  {
+    title: "What is the validity of IEC?",
+    content: (
+      <p>
+        IEC has lifetime validity. However, you must confirm / update your IEC
+        details on the DGFT portal every year between 1st April and 30th June,
+        even if there is no change, otherwise the code may get deactivated.
+      </p>
+    ),
+  },
+  {
+    title: "Documents required in case of Partnership?",
+    content: (
+      <>
+        <p>Partnership firm needs:</p>
+        <ul className={listClass}>
+          <li>Firm PAN Card</li>
+          <li>Partnership Deed</li>
+          <li>PAN &amp; Aadhaar of all partners</li>
+          <li>Cancelled cheque (firm account)</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    title: "Documents required in case of Private Limited or LLP?",
+    content: (
+      <>
+        <p>For Pvt Ltd / LLP:</p>
+        <ul className={listClass}>
+          <li>Company PAN Card</li>
+          <li>Certificate of Incorporation</li>
+          <li>PAN &amp; Aadhaar of directors</li>
+          <li>Cancelled cheque (company account)</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    title: "Documents required in case of Proprietor?",
+    content: (
+      <>
+        <p>For Proprietorship:</p>
+        <ul className={listClass}>
+          <li>Your PAN Card</li>
+          <li>Aadhaar Card</li>
+          <li>Address proof (electricity bill / rent agreement)</li>
+          <li>Cancelled cheque</li>
+        </ul>
+      </>
+    ),
+  },
+];
+
 export default function BenefitsSection() {
   return (
-    <section
-      id="benefits"
-      className="py-16 md:py-24 bg-gradient-to-br from-orange-50 via-orange-50/80 to-white"
-    >
-      <div className="w-full px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
+    <section id="benefits" className="py-2 md:py-4">
+      <div className="w-full">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-14 md:mb-20 text-gray-800 underline decoration-4 decoration-orange-400 underline-offset-8">
-          Benefits of Having an IEC Registration
-        </h2>
+        <div className="text-center mb-10 md:mb-14">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight max-w-4xl mx-auto">
+            Learn More About IEC Registration in India
+          </h2>
+          <span className="mx-auto mt-4 block h-1 w-16 rounded-full bg-orange-500"></span>
+        </div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-12">
-          {/* Left Column */}
-          <div className="space-y-6">
-            {[
-              {
-                title: "What is the Applicability of IEC?",
-                content:
-                  "IEC is mandatory for anyone importing or exporting goods commercially in India. It’s a lifetime 10-digit code issued by DGFT — your key to start an import/export business.",
-              },
-              {
-                title: "Do you apply IEC earlier on same PAN?",
-                content:
-                  "Now linked to your PAN (post-GST). Proprietorships, partnerships, companies, LLPs, trusts, HUFs — all use the same PAN + bank + address.",
-              },
-              {
-                title: "Procedure to Apply IEC Registration?",
-                content:
-                  "Super simple: Fill online form → Upload docs → Pay securely → Get expert help if needed → Receive your IEC certificate by email.",
-              },
-              {
-                title: "Can you Apply for the Modification in IEC?",
-                content: "Yes — easily update name, address, bank details etc. through the DGFT portal anytime.",
-              },
-              {
-                title: "How to Apply for IEC Registration?",
-                content:
-                  "Fill the form here + pay online, or just email your documents to infoieccodeindia@gmail.com — we’ll take care of everything.",
-              },
-              {
-                title: "What if you Don’t Know How to Fill this Form?",
-                content:
-                  "No stress! Send your documents + payment to us — our IEC experts will fill and submit everything correctly for you.",
-              },
-            ].map((item, index) => (
-              <details
-                key={index}
-                className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-200"
-              >
-                <summary className="flex justify-between items-center px-6 py-5 cursor-pointer font-semibold text-base md:text-lg text-gray-800 border-l-4 border-orange-500 group-open:bg-gradient-to-r group-open:from-orange-100 group-open:to-orange-50 transition-colors">
-                  {item.title}
-                  <span className="text-3xl font-bold text-orange-600 group-open:rotate-45 transition-transform duration-300">
-                    +
-                  </span>
-                </summary>
-                <div className="px-6 pb-6 pt-3 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                  <p>{item.content}</p>
-                </div>
-              </details>
+        <div className="grid md:grid-cols-2 items-start gap-4 lg:gap-6">
+          <div className="space-y-4">
+            {leftItems.map((item) => (
+              <AccordionItem key={item.title} title={item.title}>
+                {item.content}
+              </AccordionItem>
             ))}
           </div>
 
-          {/* Right Column */}
-          <div className="space-y-6">
-            {[
-              {
-                title: "How much time will take to obtain IEC?",
-                content:
-                  "Usually 2–7 working days after submission (most get it in 3–5 days now).",
-              },
-              {
-                title: "What is the Full Form of IEC?",
-                content:
-                  "Importer Exporter Code — your unique 10-digit business passport for international trade in India.",
-              },
-              {
-                title: "What is the validity of IEC?",
-                content:
-                  "Lifetime validity! No renewal needed unless you want to cancel or make changes.",
-              },
-              {
-                title: "Documents Required in case of Partnership?",
-                content: (
-                  <>
-                    <p>Partnership firm needs:</p>
-                    <ul className="list-disc pl-6 mt-3 space-y-1.5 text-gray-700">
-                      <li>Firm PAN Card</li>
-                      <li>Partnership Deed</li>
-                      <li>PAN & Aadhaar of all partners</li>
-                      <li>Cancelled cheque (firm account)</li>
-                    </ul>
-                  </>
-                ),
-              },
-              {
-                title: "Documents Required in case of Private Limited or LLP?",
-                content: (
-                  <>
-                    <p>For Pvt Ltd / LLP:</p>
-                    <ul className="list-disc pl-6 mt-3 space-y-1.5 text-gray-700">
-                      <li>Company PAN Card</li>
-                      <li>Certificate of Incorporation</li>
-                      <li>PAN & Aadhaar of directors</li>
-                      <li>Cancelled cheque (company account)</li>
-                    </ul>
-                  </>
-                ),
-              },
-              {
-                title: "Documents Required in case of Proprietor?",
-                content: (
-                  <>
-                    <p>For Proprietorship:</p>
-                    <ul className="list-disc pl-6 mt-3 space-y-1.5 text-gray-700">
-                      <li>Your PAN Card</li>
-                      <li>Aadhaar Card</li>
-                      <li>Address proof (electricity bill / rent agreement)</li>
-                      <li>Cancelled cheque</li>
-                    </ul>
-                  </>
-                ),
-              },
-            ].map((item, index) => (
-              <details
-                key={index}
-                className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-200"
-              >
-                <summary className="flex justify-between items-center px-6 py-5 cursor-pointer font-semibold text-base md:text-lg text-gray-800 border-l-4 border-orange-500 group-open:bg-gradient-to-r group-open:from-orange-100 group-open:to-orange-50 transition-colors">
-                  {item.title}
-                  <span className="text-3xl font-bold text-orange-600 group-open:rotate-45 transition-transform duration-300">
-                    +
-                  </span>
-                </summary>
-                <div className="px-6 pb-6 pt-3 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                  {item.content}
-                </div>
-              </details>
+          <div className="space-y-4">
+            {rightItems.map((item) => (
+              <AccordionItem key={item.title} title={item.title}>
+                {item.content}
+              </AccordionItem>
             ))}
           </div>
         </div>

@@ -1,61 +1,96 @@
+import { FaInfoCircle } from "react-icons/fa";
+
 export default function InstructionsSidebar() {
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-200 sticky top-6">
-      <h2 className="text-2xl font-bold text-blue-900 mb-8 text-center md:text-left">
-        Important Instructions
-      </h2>
-
-      <ol className="space-y-5 text-sm md:text-base text-gray-800 list-decimal pl-6 leading-relaxed">
-        <li>
-          <strong>Requirement :</strong> Select <strong>New</strong> if you require a fresh IEC Code. Select <strong>Modify</strong> if you need changes in existing IEC Code.
-        </li>
-
-        <li>
-          <strong>Name of Business Entity :</strong> Fill the Business Entity which will get printed on IEC Certificate.
-        </li>
-
-        <li>
-          <strong>Constitution of Business :</strong> Select business type of the applicant in which name IEC requires to apply.
-        </li>
-
-        <li>
-          <strong>Description of Business :</strong> Fill the name of Business / Enterprise which will get printed on IEC Certificate.
-        </li>
-
-        <li>
-          <strong>Business Activity :</strong> Select main business activity to be conducted.
-        </li>
-
-        <li>
-          <strong>Date of Incorporation / Date of Birth :</strong> Select your Date of Incorporation / Date of Birth.
-        </li>
-
-        <li>
-          <strong>Owner's Residence Address (Same as Above) :</strong> Fill complete residential address of business owner.
-        </li>
-
-        <li>
-          <strong>Have Any Branch :</strong> Do You Have Any Branch?
-        </li>
-
-        <li>
-          <strong>PAN of Entity :</strong> Fill the correct PAN Number of Business Entity.
-        </li>
-
-        <li>
-          <strong>E-Mail ID :</strong> Fill the correct Email ID of Applicant.
-        </li>
-
-        <li>
-          <strong>Mobile No :</strong> Fill the correct Mobile Number of Applicant.
-        </li>
-      </ol>
-
-      <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-600">
-        <p className="italic">
-          Note: This is a consultancy assisted form — not the official DGFT portal. Make sure all details match your official documents.
-        </p>
+    <aside className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden lg:sticky lg:top-20">
+      <div className="bg-navy-50 border-b border-navy-100 px-6 py-5 md:px-8">
+        <h2 className="text-xl md:text-2xl font-bold text-navy-900">
+          Important Instructions
+        </h2>
       </div>
-    </div>
+
+      <div className="p-6 md:p-8">
+        <ol className="steps-list space-y-5 text-sm text-slate-700 leading-relaxed">
+          <li>
+            <strong className="text-slate-900">Application Type :</strong>{" "}
+            Select <strong className="text-slate-900">IEC Registration</strong>{" "}
+            for a fresh IEC Code, <strong className="text-slate-900">IEC Modification</strong>{" "}
+            for changes in an existing IEC Code, or{" "}
+            <strong className="text-slate-900">IEC Renewal</strong> for annual update.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Name of Business Entity :</strong>{" "}
+            Fill the Business Entity name which will get printed on the IEC
+            Certificate.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Constitution of Business :</strong>{" "}
+            Select the business type of the applicant in whose name the IEC is
+            to be applied.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Description of Business :</strong>{" "}
+            Briefly describe the business / enterprise activities.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Business Activity :</strong>{" "}
+            Select the main business activity to be conducted.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">
+              Date of Incorporation / Date of Birth :
+            </strong>{" "}
+            Select your Date of Incorporation / Date of Birth.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Principal Place of Business :</strong>{" "}
+            Fill the complete address of the business. State selection is
+            mandatory.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Any Branch :</strong> Select
+            whether you have any branch office.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">PAN of Entity :</strong> Fill
+            the correct 10-digit PAN Number of the Business Entity.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Email ID :</strong> Fill the
+            correct and active Email ID of the Applicant.
+          </li>
+
+          <li>
+            <strong className="text-slate-900">Contact No. :</strong> Fill the
+            correct 10-digit Mobile Number of the Applicant.
+          </li>
+        </ol>
+
+        <div className="mt-8 flex gap-3 rounded-lg border border-orange-100 bg-orange-50 p-4 text-xs sm:text-sm text-orange-900">
+          <FaInfoCircle className="mt-0.5 shrink-0 text-orange-600" />
+          <div>
+            <p>
+              Note: This is a private consultancy assisted form — not the
+              official DGFT portal. The fees charged on this portal are
+              consultancy charges and not government fees.
+            </p>
+            <p className="mt-3">
+              Make sure all details match exactly with your PAN and other
+              official documents to avoid rejection or delay in IEC
+              registration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
   );
 }

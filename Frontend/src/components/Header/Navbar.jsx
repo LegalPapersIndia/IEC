@@ -1,6 +1,5 @@
-// src/components/Header/Navbar.jsx
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar({ navItems, handleScroll }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,18 +8,18 @@ export default function Navbar({ navItems, handleScroll }) {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="bg-gradient-to-r from-orange-300 to-blue-400 shadow-md sticky top-0 z-50">
+    <nav className="bg-navy-900 shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-3">
-
-          {/* Hamburger button - visible only on mobile (below md) */}
+        <div className="flex items-center justify-between">
+          {/* Hamburger button - Mobile / Tablet */}
           <button
-            className="md:hidden text-gray-900 focus:outline-none"
+            className="lg:hidden flex items-center gap-2 py-3 text-white focus:outline-none"
             onClick={toggleMenu}
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
           >
             <svg
-              className="w-8 h-8"
+              className="w-6 h-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -33,10 +32,11 @@ export default function Navbar({ navItems, handleScroll }) {
                 d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
               />
             </svg>
+            <span className="text-sm font-semibold tracking-wide">Menu</span>
           </button>
 
-          {/* Desktop / Tablet horizontal menu - hidden on mobile */}
-          <div className="hidden md:flex flex-wrap justify-center items-center gap-2 lg:gap-6 text-sm lg:text-base font-semibold">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex flex-wrap justify-center items-center w-full">
             {navItems.map((item) => (
               <Link
                 key={item.label}
@@ -45,17 +45,19 @@ export default function Navbar({ navItems, handleScroll }) {
                   handleScroll(e, item.to);
                   closeMenu();
                 }}
-                className="px-3 py-2 hover:bg-white/30 rounded-lg transition-all duration-300 hover:shadow-md hover:text-orange-700 active:scale-95"
+                className="relative px-2.5 xl:px-4 py-4 text-[12px] xl:text-[13px] 2xl:text-sm font-semibold tracking-wide text-slate-200 hover:text-white transition-colors
+                           after:absolute after:inset-x-2.5 xl:after:inset-x-4 after:bottom-0 after:h-0.5 after:bg-orange-500
+                           after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
               >
                 {item.label}
               </Link>
             ))}
           </div>
 
-          {/* Mobile menu dropdown - only visible when open on small screens */}
+          {/* Mobile / Tablet Menu */}
           {isOpen && (
-            <div className="absolute top-full left-0 right-0 md:hidden bg-gradient-to-r from-orange-300 to-blue-400 shadow-lg z-40">
-              <div className="flex flex-col items-center py-4 gap-3">
+            <div className="absolute top-full left-0 right-0 lg:hidden bg-navy-800 border-t border-navy-700 shadow-xl z-40 max-h-[70vh] overflow-y-auto">
+              <div className="flex flex-col py-2">
                 {navItems.map((item) => (
                   <Link
                     key={item.label}
@@ -64,7 +66,7 @@ export default function Navbar({ navItems, handleScroll }) {
                       handleScroll(e, item.to);
                       closeMenu();
                     }}
-                    className="px-6 py-3 text-base font-medium hover:bg-white/20 rounded-lg transition-colors w-full text-center"
+                    className="px-6 py-3.5 text-sm font-semibold tracking-wide text-slate-200 hover:text-white hover:bg-navy-700 border-l-4 border-transparent hover:border-orange-500 transition-colors"
                   >
                     {item.label}
                   </Link>
