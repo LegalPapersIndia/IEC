@@ -2,7 +2,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 import Logo from "../../Assest/logo.png";
-import azadi from "../../Assest/azadi.png";
+import azadi from "../../Assest/india.png";
 
 const quickLinks = [
   { name: "Apply for IEC", hash: "registration-form" },
@@ -25,7 +25,7 @@ const policyLinks = [
 const headingClass =
   "relative pb-3 text-sm font-bold uppercase tracking-wider text-white after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-8 after:rounded-full after:bg-orange-500";
 
-const OWNER = "EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED";
+const OWNER = "EASRISE LEGALPAPERS MANAGEMENT PRIVATE LIMITED";
 
 export default function MainFooter() {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ export default function MainFooter() {
   };
 
   return (
-    <footer className="bg-navy-950 text-slate-400 border-t-4 border-orange-600 pt-12 pb-8">
+    <footer className="bg-[#35286f] text-slate-400 border-t-4 border-orange-600 pt-12 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 max-w-screen-2xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Important Notice */}
@@ -133,7 +133,7 @@ export default function MainFooter() {
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
               {/* Azadi logo mein text white hai, isliye dark card */}
-              <div className="rounded-xl bg-navy-800 ring-1 ring-white/15 p-3 shadow-sm">
+              <div className="rounded-xl bg-white p-3 shadow-sm">
                 <img
                   src={azadi}
                   alt="Azadi Ka Amrit Mahotsav"

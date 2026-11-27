@@ -10,7 +10,7 @@ function MarqueeText() {
         rel="noopener noreferrer"
         className="font-bold underline underline-offset-2 hover:text-orange-600"
       >
-        EASRISE LEGALPAPERS MANAGEMENT (OPC) PRIVATE LIMITED
+        EASRISE LEGALPAPERS MANAGEMENT PRIVATE LIMITED
       </a>{" "}
       for obtaining Import Export Code. Portal fees are consultancy in nature.
     </span>

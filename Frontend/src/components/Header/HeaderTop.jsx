@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import Logo from "../../Assest/logo.png";
-import Swach from "../../Assest/swach.png";
+import Swach from "../../Assest/image.png";
 
 const NOTICE_TEXT =
   "MANDATORY IEC UPDATION EVERY YEAR BETWEEN 1ST APRIL – 30TH JUNE • KEEP YOUR CODE ACTIVE – VERIFY & UPDATE EVEN IF NO CHANGES • VISIT DGFT PORTAL TO AVOID DEACTIVATION";

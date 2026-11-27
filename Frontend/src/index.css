@@ -4,17 +4,31 @@
 @theme {
   --font-sans: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --color-navy-50: #f3f6fb;
-  --color-navy-100: #e3eaf5;
-  --color-navy-200: #c5d3ea;
-  --color-navy-300: #9db5da;
-  --color-navy-400: #6c8dc4;
-  --color-navy-500: #4770ad;
-  --color-navy-600: #1e4a8a;
-  --color-navy-700: #173b72;
-  --color-navy-800: #112c56;
-  --color-navy-900: #0b1f3a;
-  --color-navy-950: #07142a;
+  /* Bg / border / ring / gradient ke liye brand color: #9E4D66 */
+  --color-navy-50: #fbf4f6;
+  --color-navy-100: #f6e6eb;
+  --color-navy-200: #eccfd8;
+  --color-navy-300: #e0aebe;
+  --color-navy-400: #d0839c;
+  --color-navy-500: #c4708b;
+  --color-navy-600: #9e4d66;
+  --color-navy-700: #8a4259; /* hover shade (mobile menu hover) */
+  --color-navy-800: #9e4d66;
+  --color-navy-900: #9e4d66;
+  --color-navy-950: #9e4d66;
+}
+
+/* Text ka color pehle jaisa blue hi rahega (heading + baaki text change nahi) */
+@layer utilities {
+  .text-navy-700 {
+    color: #173b72;
+  }
+  .text-navy-800 {
+    color: #112c56;
+  }
+  .text-navy-900 {
+    color: #0b1f3a;
+  }
 }
 
 html {
@@ -38,6 +52,11 @@ body {
 :focus-visible:not(input):not(select):not(textarea) {
   outline: 2px solid #ea580c;
   outline-offset: 2px;
+}
+
+/* Footer ke "Trusted By" mein Azadi logo wale card ka bg (#35286F) */
+footer .bg-navy-800 {
+  background-color: #35286f;
 }
 
 /* Numbered instructions list (sidebar) */
@@ -65,8 +84,8 @@ body {
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 9999px;
-  background: #e3eaf5;
-  color: #112c56;
+  background: #f6e6eb; /* bg maroon tint */
+  color: #112c56; /* number ka text color pehle jaisa */
   font-size: 0.75rem;
   font-weight: 700;
 }
