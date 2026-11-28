@@ -4,18 +4,38 @@
 @theme {
   --font-sans: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Bg / border / ring / gradient ke liye brand color: #9E4D66 */
+  /* Brand maroon (#9E4D66 ka halka version: #b0647c) */
   --color-navy-50: #fbf4f6;
   --color-navy-100: #f6e6eb;
   --color-navy-200: #eccfd8;
   --color-navy-300: #e0aebe;
   --color-navy-400: #d0839c;
   --color-navy-500: #c4708b;
-  --color-navy-600: #9e4d66;
-  --color-navy-700: #8a4259; /* hover shade (mobile menu hover) */
-  --color-navy-800: #9e4d66;
-  --color-navy-900: #9e4d66;
-  --color-navy-950: #9e4d66;
+  --color-navy-600: #b0647c;
+  --color-navy-700: #9e4d66; /* hover shade (mobile menu hover) */
+  --color-navy-800: #b0647c;
+  --color-navy-900: #b0647c;
+  --color-navy-950: #b0647c;
+
+  /* Orange hata diya: ab har jagah maroon (#9E4D66 family) */
+  --color-orange-50: #fbf4f6;
+  --color-orange-100: #f6e6eb;
+  --color-orange-200: #eccfd8;
+  --color-orange-300: #e0aebe;
+  --color-orange-400: #d68ba3;
+  --color-orange-500: #b0647c;
+  --color-orange-600: #9e4d66;
+  --color-orange-700: #8a4259;
+  --color-orange-800: #6f3548;
+  --color-orange-900: #4f2533;
+  --color-orange-950: #36171f;
+}
+
+/* Brand gradient colors (yahin se change kar sakte ho) */
+:root {
+  --lpi-maroon: #b0647c; /* #9E4D66 ka halka shade */
+  --lpi-purple: #35286f; /* gradient ka last color */
+  --lpi-flow: linear-gradient(90deg, var(--lpi-maroon), var(--lpi-purple), var(--lpi-maroon));
 }
 
 /* Text ka color pehle jaisa blue hi rahega (heading + baaki text change nahi) */
@@ -50,13 +70,115 @@ body {
 
 /* Keyboard focus ring (form fields ki apni ring hoti hai) */
 :focus-visible:not(input):not(select):not(textarea) {
-  outline: 2px solid #ea580c;
+  outline: 2px solid #b0647c;
   outline-offset: 2px;
 }
 
 /* Footer ke "Trusted By" mein Azadi logo wale card ka bg (#35286F) */
 footer .bg-navy-800 {
   background-color: #35286f;
+}
+
+/* ---------- Animated gradient: maroon (#9E4D66 halka) -> #35286F ---------- */
+@keyframes lpi-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Jaha pehle maroon solid tha (navbar, top bar, buttons, headers) */
+.bg-navy-800,
+.bg-navy-900,
+.group:hover .group-hover\:bg-navy-900 {
+  background-image: var(--lpi-flow);
+  background-size: 200% 100%;
+  animation: lpi-gradient-flow 8s ease-in-out infinite;
+}
+
+/* Hover par gradient ulta ho jata hai (hover effect dikhe) */
+.hover\:bg-navy-800:hover {
+  background-image: linear-gradient(90deg, var(--lpi-purple), var(--lpi-maroon), var(--lpi-purple));
+  background-size: 200% 100%;
+  animation: lpi-gradient-flow 8s ease-in-out infinite;
+}
+
+/* Hero ke neeche wali translucent bar */
+.bg-navy-950\/85 {
+  background-color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    rgb(176 100 124 / 0.88),
+    rgb(53 40 111 / 0.88),
+    rgb(176 100 124 / 0.88)
+  );
+  background-size: 200% 100%;
+  animation: lpi-gradient-flow 8s ease-in-out infinite;
+}
+
+/* About page ke bade gradient panels */
+.from-navy-950.to-navy-800,
+.from-navy-900.to-navy-800 {
+  background-image: linear-gradient(135deg, var(--lpi-maroon), var(--lpi-purple), var(--lpi-maroon));
+  background-size: 200% 200%;
+  animation: lpi-gradient-flow 10s ease-in-out infinite;
+}
+
+/* About page ki patli decorative bars */
+.from-navy-800.to-orange-500,
+.from-navy-900.via-navy-700 {
+  background-image: var(--lpi-flow);
+  background-size: 200% 100%;
+  animation: lpi-gradient-flow 8s ease-in-out infinite;
+}
+
+/* ---------- Orange ki jagah maroon (#9E4D66) gradient ---------- */
+.bg-orange-500,
+.after\:bg-orange-500::after {
+  background-image: linear-gradient(135deg, #d68ba3 0%, #b0647c 100%);
+}
+
+.bg-orange-600,
+.group[open] .group-open\:bg-orange-600 {
+  background-image: linear-gradient(135deg, #b0647c 0%, #9e4d66 100%);
+}
+
+.hover\:bg-orange-600:hover {
+  background-image: linear-gradient(135deg, #b0647c 0%, #9e4d66 100%);
+  background-size: 100% 100%;
+  animation: none;
+}
+
+.hover\:bg-orange-700:hover {
+  background-image: linear-gradient(135deg, #9e4d66 0%, #7f3c52 100%);
+}
+
+/* About page ke orange->amber gradients ke end colors bhi maroon tint */
+.to-amber-300 {
+  --tw-gradient-to: #eccfd8;
+}
+
+.to-amber-200 {
+  --tw-gradient-to: #f6e6eb;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-navy-800,
+  .bg-navy-900,
+  .group:hover .group-hover\:bg-navy-900,
+  .hover\:bg-navy-800:hover,
+  .bg-navy-950\/85,
+  .from-navy-950.to-navy-800,
+  .from-navy-900.to-navy-800,
+  .from-navy-800.to-orange-500,
+  .from-navy-900.via-navy-700 {
+    animation: none;
+  }
 }
 
 /* Numbered instructions list (sidebar) */
